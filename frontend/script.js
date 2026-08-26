@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:5000/api/products";
+const API_URL = "https://zevora-no6r.onrender.com/api/products";
 
 let products = [];
 let cart = JSON.parse(localStorage.getItem("cart")) || [];

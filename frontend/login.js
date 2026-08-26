@@ -11,7 +11,7 @@ loginForm.addEventListener("submit", async (event) => {
     try {
 
         const response = await fetch(
-            "http://localhost:5000/api/auth/login",
+            "https://zevora-no6r.onrender.com/api/auth/login",
             {
                 method: "POST",
 

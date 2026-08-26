@@ -12,7 +12,7 @@ registerForm.addEventListener("submit", async (event) => {
     try {
 
         const response = await fetch(
-            "http://localhost:5000/api/auth/register",
+            "https://zevora-no6r.onrender.com/api/auth/register",
             {
                 method: "POST",
 
