@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Dashboard</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f4f4f4;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        .form-box,
+        .product,
+        .order {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+
+        input,
+        textarea,
+        select {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 10px 15px;
+            margin: 5px;
+            cursor: pointer;
+        }
+
+        .edit {
+            background: #ddd;
+        }
+
+        .delete {
+            background: #ffcccc;
+        }
+
+        .refresh {
+            background: #ddd;
+            border: none;
+        }
+
+        .order {
+            border-left: 5px solid #333;
+        }
+
+        .order-item {
+            background: #f5f5f5;
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 5px;
+        }
+
+        .status-box {
+            margin-top: 15px;
+            padding: 10px;
+            background: #f5f5f5;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>🛒 Admin Dashboard</h1>
+
+
+    <!-- =============================== -->
+    <!-- ADD / EDIT PRODUCT -->
+    <!-- =============================== -->
+
+    <div class="form-box">
+
+        <h2 id="formTitle">Add Product</h2>
+
+        <input
+            type="text"
+            id="name"
+            placeholder="Product Name"
+        >
+
+        <textarea
+            id="description"
+            placeholder="Product Description"
+        ></textarea>
+
+        <input
+            type="number"
+            id="price"
+            placeholder="Price"
+        >
+
+        <input
+            type="text"
+            id="image_url"
+            placeholder="Image URL"
+        >
+
+        <input
+            type="text"
+            id="category"
+            placeholder="Category"
+        >
+
+        <input
+            type="number"
+            id="stock"
+            placeholder="Stock"
+        >
+
+        <button onclick="saveProduct()">
+            Save Product
+        </button>
+
+        <button onclick="clearForm()">
+            Clear
+        </button>
+
+    </div>
+
+
+    <!-- =============================== -->
+    <!-- PRODUCTS -->
+    <!-- =============================== -->
+
+    <h2>Products</h2>
+
+    <div id="productsContainer">
+        Loading products...
+    </div>
+
+
+    <!-- =============================== -->
+    <!-- ORDERS -->
+    <!-- =============================== -->
+
+    <h2>📦 Customer Orders</h2>
+
+    <button
+        class="refresh"
+        onclick="loadOrders()"
+    >
+        🔄 Refresh Orders
+    </button>
+
+    <div id="ordersContainer">
+        Loading orders...
+    </div>
+
+</div>
+
+
+<script>
+
+const API_URL =
+    "http://localhost:5000/api/products";
+
+const ORDERS_API_URL =
+    "http://localhost:5000/api/orders/admin/all";
+
+const UPDATE_ORDER_API =
+    "http://localhost:5000/api/orders/admin";
+
+let editingProductId = null;
+
+
+// =====================================
+// LOAD PRODUCTS
+// =====================================
+
+async function loadProducts() {
+
+    const container =
+        document.getElementById(
+            "productsContainer"
+        );
+
+    try {
+
+        const response =
+            await fetch(API_URL);
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Failed to load products"
+            );
+        }
+
+        const products =
+            await response.json();
+
+        container.innerHTML = "";
+
+        if (products.length === 0) {
+
+            container.innerHTML =
+                "<p>No products found.</p>";
+
+            return;
+        }
+
+        products.forEach(product => {
+
+            const div =
+                document.createElement("div");
+
+            div.className = "product";
+
+            div.innerHTML = `
+
+                <h3>
+                    ${product.name}
+                </h3>
+
+                <p>
+                    ${product.description || ""}
+                </p>
+
+                <p>
+                    <strong>
+                        ₹${product.price}
+                    </strong>
+                </p>
+
+                <p>
+                    Category:
+                    ${product.category || ""}
+                </p>
+
+                <p>
+                    Stock:
+                    ${product.stock}
+                </p>
+
+                <button
+                    class="edit"
+                    onclick="editProduct(
+                        ${product.id},
+                        '${escapeQuotes(product.name)}',
+                        '${escapeQuotes(product.description || "")}',
+                        '${product.price}',
+                        '${escapeQuotes(product.image_url || "")}',
+                        '${escapeQuotes(product.category || "")}',
+                        '${product.stock}'
+                    )">
+
+                    Edit
+
+                </button>
+
+                <button
+                    class="delete"
+                    onclick="deleteProduct(${product.id})">
+
+                    Delete
+
+                </button>
+
+            `;
+
+            container.appendChild(div);
+
+        });
+
+    } catch (error) {
+
+        console.error(error);
+
+        container.innerHTML =
+            "<p>Unable to load products.</p>";
+    }
+}
+
+
+// =====================================
+// SAVE PRODUCT
+// =====================================
+
+async function saveProduct() {
+
+    const name =
+        document.getElementById("name").value.trim();
+
+    const description =
+        document.getElementById("description").value.trim();
+
+    const price =
+        document.getElementById("price").value;
+
+    const image_url =
+        document.getElementById("image_url").value.trim();
+
+    const category =
+        document.getElementById("category").value.trim();
+
+    const stock =
+        document.getElementById("stock").value;
+
+
+    if (!name || !price) {
+
+        alert(
+            "Product name and price are required."
+        );
+
+        return;
+    }
+
+
+    const productData = {
+
+        name,
+        description,
+        price: Number(price),
+        image_url,
+        category,
+        stock: Number(stock) || 0
+
+    };
+
+
+    try {
+
+        let response;
+
+
+        if (editingProductId) {
+
+            response =
+                await fetch(
+                    `${API_URL}/${editingProductId}`,
+                    {
+                        method: "PUT",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body:
+                            JSON.stringify(productData)
+                    }
+                );
+
+        } else {
+
+            response =
+                await fetch(
+                    API_URL,
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body:
+                            JSON.stringify(productData)
+                    }
+                );
+        }
+
+
+        const result =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                result.message ||
+                "Operation failed"
+            );
+        }
+
+
+        alert(
+            editingProductId
+                ? "Product updated successfully!"
+                : "Product added successfully!"
+        );
+
+
+        clearForm();
+
+        loadProducts();
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert(
+            "Error: " +
+            error.message
+        );
+    }
+}
+
+
+// =====================================
+// EDIT PRODUCT
+// =====================================
+
+function editProduct(
+    id,
+    name,
+    description,
+    price,
+    image_url,
+    category,
+    stock
+) {
+
+    editingProductId = id;
+
+    document.getElementById("name").value =
+        name;
+
+    document.getElementById("description").value =
+        description;
+
+    document.getElementById("price").value =
+        price;
+
+    document.getElementById("image_url").value =
+        image_url;
+
+    document.getElementById("category").value =
+        category;
+
+    document.getElementById("stock").value =
+        stock;
+
+    document.getElementById("formTitle").textContent =
+        "Edit Product";
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+
+// =====================================
+// DELETE PRODUCT
+// =====================================
+
+async function deleteProduct(id) {
+
+    const confirmDelete =
+        confirm(
+            "Are you sure you want to delete this product?"
+        );
+
+    if (!confirmDelete) {
+        return;
+    }
+
+    try {
+
+        const response =
+            await fetch(
+                `${API_URL}/${id}`,
+                {
+                    method: "DELETE"
+                }
+            );
+
+        const result =
+            await response.json();
+
+        if (!response.ok) {
+
+            throw new Error(
+                result.message ||
+                "Failed to delete product"
+            );
+        }
+
+        alert(
+            "Product deleted successfully!"
+        );
+
+        loadProducts();
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert(
+            "Error: " +
+            error.message
+        );
+    }
+}
+
+
+// =====================================
+// CLEAR FORM
+// =====================================
+
+function clearForm() {
+
+    editingProductId = null;
+
+    document.getElementById("name").value = "";
+
+    document.getElementById("description").value = "";
+
+    document.getElementById("price").value = "";
+
+    document.getElementById("image_url").value = "";
+
+    document.getElementById("category").value = "";
+
+    document.getElementById("stock").value = "";
+
+    document.getElementById("formTitle").textContent =
+        "Add Product";
+}
+
+
+// =====================================
+// ESCAPE QUOTES
+// =====================================
+
+function escapeQuotes(text) {
+
+    return text
+        .replace(/\\/g, "\\\\")
+        .replace(/'/g, "\\'");
+}
+
+
+// =====================================
+// LOAD ALL ORDERS
+// =====================================
+
+async function loadOrders() {
+
+    const container =
+        document.getElementById(
+            "ordersContainer"
+        );
+
+    container.innerHTML =
+        "Loading orders...";
+
+    try {
+
+        const response =
+            await fetch(ORDERS_API_URL);
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Failed to load orders"
+            );
+        }
+
+        const orders =
+            await response.json();
+
+        container.innerHTML = "";
+
+        if (orders.length === 0) {
+
+            container.innerHTML =
+                "<p>No orders found.</p>";
+
+            return;
+        }
+
+
+        orders.forEach(order => {
+
+            const div =
+                document.createElement("div");
+
+            div.className = "order";
+
+
+            let itemsHTML = "";
+
+
+            if (
+                order.items &&
+                order.items.length > 0
+            ) {
+
+                order.items.forEach(item => {
+
+                    itemsHTML += `
+
+                        <div class="order-item">
+
+                            <strong>
+                                ${item.name}
+                            </strong>
+
+                            <br>
+
+                            Quantity:
+                            ${item.quantity}
+
+                            <br>
+
+                            Price:
+                            ₹${item.price}
+
+                        </div>
+
+                    `;
+                });
+
+            } else {
+
+                itemsHTML =
+                    "<p>No items found.</p>";
+            }
+
+
+            div.innerHTML = `
+
+                <h3>
+                    Order #${order.id}
+                </h3>
+
+                <p>
+                    <strong>
+                        User ID:
+                    </strong>
+
+                    ${order.user_id}
+                </p>
+
+                <p>
+                    <strong>
+                        Total:
+                    </strong>
+
+                    ₹${order.total_amount}
+                </p>
+
+                <p>
+
+                    <strong>
+                        Date:
+                    </strong>
+
+                    ${new Date(
+                        order.created_at
+                    ).toLocaleString()}
+
+                </p>
+
+
+                <h4>
+                    Products
+                </h4>
+
+                ${itemsHTML}
+
+
+                <div class="status-box">
+
+                    <strong>
+                        Order Status:
+                    </strong>
+
+                    <select
+                        id="status-${order.id}"
+                    >
+
+                        <option
+                            value="pending"
+                            ${order.status === "pending"
+                                ? "selected"
+                                : ""}
+                        >
+                            Pending
+                        </option>
+
+                        <option
+                            value="confirmed"
+                            ${order.status === "confirmed"
+                                ? "selected"
+                                : ""}
+                        >
+                            Confirmed
+                        </option>
+
+                        <option
+                            value="shipped"
+                            ${order.status === "shipped"
+                                ? "selected"
+                                : ""}
+                        >
+                            Shipped
+                        </option>
+
+                        <option
+                            value="delivered"
+                            ${order.status === "delivered"
+                                ? "selected"
+                                : ""}
+                        >
+                            Delivered
+                        </option>
+
+                        <option
+                            value="cancelled"
+                            ${order.status === "cancelled"
+                                ? "selected"
+                                : ""}
+                        >
+                            Cancelled
+                        </option>
+
+                    </select>
+
+
+                    <button
+                        onclick="updateOrderStatus(${order.id})"
+                    >
+                        Update Status
+                    </button>
+
+                </div>
+
+            `;
+
+            container.appendChild(div);
+
+        });
+
+    } catch (error) {
+
+        console.error(error);
+
+        container.innerHTML = `
+
+            <p>
+                Unable to load orders.
+            </p>
+
+            <p>
+                ${error.message}
+            </p>
+
+        `;
+    }
+}
+
+
+// =====================================
+// UPDATE ORDER STATUS
+// =====================================
+
+async function updateOrderStatus(orderId) {
+
+    const select =
+        document.getElementById(
+            `status-${orderId}`
+        );
+
+    const status =
+        select.value;
+
+
+    try {
+
+        const response =
+            await fetch(
+                `${UPDATE_ORDER_API}/${orderId}/status`,
+                {
+                    method: "PUT",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body:
+                        JSON.stringify({
+                            status: status
+                        })
+                }
+            );
+
+
+        const result =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                result.message ||
+                "Failed to update status"
+            );
+        }
+
+
+        alert(
+            "Order status updated successfully!"
+        );
+
+
+        loadOrders();
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert(
+            "Error: " +
+            error.message
+        );
+    }
+}
+
+
+// =====================================
+// START
+// =====================================
+
+loadProducts();
+
+loadOrders();
+
+</script>
+
+</body>
+</html>

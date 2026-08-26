@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Shopping Cart | ZEVORA</title>
+
+    <style>
+
+        /* =====================================
+           RESET
+        ===================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        /* =====================================
+           BODY
+        ===================================== */
+
+        body {
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background: #F5F3EE;
+
+            color: #29332D;
+
+            min-height: 100vh;
+        }
+
+
+        /* =====================================
+           HEADER
+        ===================================== */
+
+        header {
+
+            background: #53665A;
+
+            color: white;
+
+            padding: 18px 40px;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            box-shadow:
+                0 3px 12px rgba(41, 51, 45, 0.15);
+        }
+
+
+        .logo {
+
+            font-size: 22px;
+
+            font-weight: bold;
+
+            letter-spacing: 1px;
+        }
+
+
+        .continue-shopping {
+
+            color: white;
+
+            text-decoration: none;
+
+            padding: 9px 15px;
+
+            border: 1px solid #DCE4DE;
+
+            border-radius: 6px;
+
+            font-size: 14px;
+
+            transition: 0.2s;
+        }
+
+
+        .continue-shopping:hover {
+
+            background: #789080;
+
+            border-color: white;
+        }
+
+
+        /* =====================================
+           MAIN
+        ===================================== */
+
+        main {
+
+            max-width: 1200px;
+
+            margin: auto;
+
+            padding: 40px 25px 70px;
+        }
+
+
+        .page-title {
+
+            margin-bottom: 30px;
+        }
+
+
+        .page-title h1 {
+
+            font-size: 30px;
+
+            margin-bottom: 7px;
+
+            color: #53665A;
+        }
+
+
+        .page-title p {
+
+            color: #68736C;
+
+            font-size: 14px;
+        }
+
+
+        /* =====================================
+           CART LAYOUT
+        ===================================== */
+
+        .cart-layout {
+
+            display: grid;
+
+            grid-template-columns:
+                1fr 350px;
+
+            gap: 25px;
+
+            align-items: start;
+        }
+
+
+        /* =====================================
+           CART ITEMS
+        ===================================== */
+
+        .cart-container {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 15px;
+        }
+
+
+        .cart-item {
+
+            background: white;
+
+            border: 1px solid #DCE4DE;
+
+            border-radius: 12px;
+
+            padding: 22px;
+
+            display: grid;
+
+            grid-template-columns:
+                1fr auto;
+
+            gap: 20px;
+
+            box-shadow:
+                0 3px 12px
+                rgba(41, 51, 45, 0.06);
+
+            transition: 0.2s;
+        }
+
+
+        .cart-item:hover {
+
+            box-shadow:
+                0 7px 20px
+                rgba(41, 51, 45, 0.10);
+
+            transform:
+                translateY(-2px);
+        }
+
+
+        .cart-item h3 {
+
+            font-size: 18px;
+
+            margin-bottom: 10px;
+
+            color: #29332D;
+        }
+
+
+        .price {
+
+            color: #68736C;
+
+            font-size: 14px;
+
+            margin-bottom: 15px;
+        }
+
+
+        .price strong {
+
+            color: #53665A;
+        }
+
+
+        /* =====================================
+           QUANTITY
+        ===================================== */
+
+        .quantity {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            font-size: 14px;
+
+            color: #53665A;
+        }
+
+
+        .quantity button {
+
+            width: 32px;
+
+            height: 32px;
+
+            border: 1px solid #BFCBC2;
+
+            background: #F4F7F4;
+
+            color: #53665A;
+
+            border-radius: 6px;
+
+            cursor: pointer;
+
+            font-size: 18px;
+
+            transition: 0.2s;
+        }
+
+
+        .quantity button:hover {
+
+            background: #DCE4DE;
+
+            border-color: #789080;
+        }
+
+
+        .quantity strong {
+
+            min-width: 30px;
+
+            text-align: center;
+
+            color: #29332D;
+        }
+
+
+        /* =====================================
+           SUBTOTAL
+        ===================================== */
+
+        .item-subtotal {
+
+            text-align: right;
+
+            font-size: 15px;
+
+            margin-bottom: 15px;
+
+            color: #68736C;
+        }
+
+
+        .item-subtotal strong {
+
+            font-size: 18px;
+
+            color: #53665A;
+        }
+
+
+        /* =====================================
+           REMOVE
+        ===================================== */
+
+        .remove {
+
+            border: none;
+
+            background: transparent;
+
+            color: #9A5F5F;
+
+            cursor: pointer;
+
+            font-size: 13px;
+
+            padding: 5px 0;
+        }
+
+
+        .remove:hover {
+
+            text-decoration: underline;
+
+            color: #7D4646;
+        }
+
+
+        /* =====================================
+           ORDER SUMMARY
+        ===================================== */
+
+        .summary {
+
+            background: white;
+
+            border: 1px solid #DCE4DE;
+
+            border-radius: 12px;
+
+            padding: 25px;
+
+            position: sticky;
+
+            top: 90px;
+
+            box-shadow:
+                0 4px 15px
+                rgba(41, 51, 45, 0.08);
+        }
+
+
+        .summary h2 {
+
+            font-size: 21px;
+
+            margin-bottom: 22px;
+
+            color: #53665A;
+        }
+
+
+        .summary-row {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            margin-bottom: 15px;
+
+            font-size: 14px;
+
+            color: #68736C;
+        }
+
+
+        .summary-row.total-row {
+
+            border-top: 1px solid #DCE4DE;
+
+            padding-top: 18px;
+
+            margin-top: 8px;
+
+            color: #29332D;
+
+            font-size: 18px;
+
+            font-weight: bold;
+        }
+
+
+        .delivery {
+
+            color: #5D8068 !important;
+
+            font-weight: 600;
+        }
+
+
+        /* =====================================
+           CHECKOUT BUTTON
+        ===================================== */
+
+        #checkoutButton {
+
+            width: 100%;
+
+            margin-top: 20px;
+
+            padding: 14px;
+
+            background: #53665A;
+
+            color: white;
+
+            border: none;
+
+            border-radius: 7px;
+
+            cursor: pointer;
+
+            font-size: 15px;
+
+            font-weight: bold;
+
+            transition: 0.2s;
+        }
+
+
+        #checkoutButton:hover {
+
+            background: #789080;
+
+        }
+
+
+        /* =====================================
+           EMPTY CART
+        ===================================== */
+
+        .empty-cart {
+
+            background: white;
+
+            border: 1px solid #DCE4DE;
+
+            border-radius: 12px;
+
+            padding: 60px 25px;
+
+            text-align: center;
+
+            box-shadow:
+                0 3px 12px
+                rgba(41, 51, 45, 0.06);
+        }
+
+
+        .empty-cart .icon {
+
+            font-size: 50px;
+
+            margin-bottom: 15px;
+        }
+
+
+        .empty-cart h2 {
+
+            margin-bottom: 8px;
+
+            color: #53665A;
+        }
+
+
+        .empty-cart p {
+
+            color: #68736C;
+
+            margin-bottom: 20px;
+        }
+
+
+        .shop-button {
+
+            display: inline-block;
+
+            background: #53665A;
+
+            color: white;
+
+            text-decoration: none;
+
+            padding: 12px 22px;
+
+            border-radius: 7px;
+
+            font-weight: bold;
+
+            font-size: 14px;
+
+            transition: 0.2s;
+        }
+
+
+        .shop-button:hover {
+
+            background: #789080;
+        }
+
+
+        /* =====================================
+           MESSAGE
+        ===================================== */
+
+        #orderMessage {
+
+            margin-top: 20px;
+
+            text-align: center;
+
+            font-weight: bold;
+
+            color: #5D8068;
+        }
+
+
+        /* =====================================
+           RESPONSIVE
+        ===================================== */
+
+        @media (max-width: 800px) {
+
+            .cart-layout {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .summary {
+
+                position: static;
+            }
+        }
+
+
+        @media (max-width: 550px) {
+
+            header {
+
+                padding: 15px 20px;
+            }
+
+
+            main {
+
+                padding: 30px 15px 50px;
+            }
+
+
+            .cart-item {
+
+                grid-template-columns: 1fr;
+
+                gap: 10px;
+            }
+
+
+            .item-subtotal {
+
+                text-align: left;
+            }
+
+
+            .page-title h1 {
+
+                font-size: 26px;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================
+     HEADER
+===================================== -->
+
+<header>
+
+    <div class="logo">
+        🛒 ZEVORA
+    </div>
+
+
+    <a
+        href="index.html"
+        class="continue-shopping"
+    >
+        ← Continue Shopping
+    </a>
+
+</header>
+
+
+
+<!-- =====================================
+     MAIN
+===================================== -->
+
+<main>
+
+
+    <div class="page-title">
+
+        <h1>
+            Shopping Cart
+        </h1>
+
+        <p>
+            Review your items before placing your order.
+        </p>
+
+    </div>
+
+
+    <div
+        id="cartLayout"
+        class="cart-layout"
+    >
+
+
+        <!-- CART ITEMS -->
+
+        <div>
+
+            <div
+                id="cartContainer"
+                class="cart-container"
+            ></div>
+
+        </div>
+
+
+        <!-- ORDER SUMMARY -->
+
+        <div
+            id="summary"
+            class="summary"
+        >
+
+            <h2>
+                Order Summary
+            </h2>
+
+
+            <div class="summary-row">
+
+                <span>
+                    Subtotal
+                </span>
+
+                <span id="subtotal">
+                    ₹0.00
+                </span>
+
+            </div>
+
+
+            <div class="summary-row">
+
+                <span>
+                    Delivery
+                </span>
+
+                <span class="delivery">
+                    FREE
+                </span>
+
+            </div>
+
+
+            <div class="summary-row total-row">
+
+                <span>
+                    Total
+                </span>
+
+                <span id="cartTotal">
+                    ₹0.00
+                </span>
+
+            </div>
+
+
+            <button id="checkoutButton">
+                Place Order 📦
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <p id="orderMessage"></p>
+
+
+</main>
+
+
+
+<script>
+
+
+// =====================================
+// CART
+// =====================================
+
+let cart =
+    JSON.parse(
+        localStorage.getItem("cart")
+    ) || [];
+
+
+// =====================================
+// DISPLAY CART
+// =====================================
+
+function displayCart() {
+
+    const container =
+        document.getElementById(
+            "cartContainer"
+        );
+
+
+    const summary =
+        document.getElementById(
+            "summary"
+        );
+
+
+    const layout =
+        document.getElementById(
+            "cartLayout"
+        );
+
+
+    const subtotalBox =
+        document.getElementById(
+            "subtotal"
+        );
+
+
+    const totalBox =
+        document.getElementById(
+            "cartTotal"
+        );
+
+
+    container.innerHTML = "";
+
+
+    // =================================
+    // EMPTY CART
+    // =================================
+
+    if (cart.length === 0) {
+
+        layout.style.display =
+            "block";
+
+
+        summary.style.display =
+            "none";
+
+
+        container.innerHTML = `
+
+            <div class="empty-cart">
+
+                <div class="icon">
+                    🛒
+                </div>
+
+                <h2>
+                    Your cart is empty
+                </h2>
+
+                <p>
+                    Looks like you haven't added
+                    anything to your cart yet.
+                </p>
+
+                <a
+                    href="index.html"
+                    class="shop-button"
+                >
+                    Start Shopping
+                </a>
+
+            </div>
+
+        `;
+
+        return;
+    }
+
+
+    // =================================
+    // SHOW SUMMARY
+    // =================================
+
+    summary.style.display =
+        "block";
+
+
+    layout.style.display =
+        "grid";
+
+
+    let total = 0;
+
+
+    // =================================
+    // DISPLAY ITEMS
+    // =================================
+
+    cart.forEach((item, index) => {
+
+        const price =
+            Number(item.price) || 0;
+
+
+        const quantity =
+            Number(item.quantity) || 1;
+
+
+        const subtotal =
+            price * quantity;
+
+
+        total += subtotal;
+
+
+        const div =
+            document.createElement("div");
+
+
+        div.className =
+            "cart-item";
+
+
+        div.innerHTML = `
+
+            <div>
+
+                <h3>
+                    ${item.name}
+                </h3>
+
+
+                <p class="price">
+
+                    Unit Price:
+
+                    <strong>
+                        ₹${price.toFixed(2)}
+                    </strong>
+
+                </p>
+
+
+                <div class="quantity">
+
+                    <span>
+                        Quantity:
+                    </span>
+
+
+                    <button
+                        onclick="decreaseQuantity(${index})"
+                    >
+                        −
+                    </button>
+
+
+                    <strong>
+                        ${quantity}
+                    </strong>
+
+
+                    <button
+                        onclick="increaseQuantity(${index})"
+                    >
+                        +
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div>
+
+                <p class="item-subtotal">
+
+                    Subtotal:
+
+                    <strong>
+                        ₹${subtotal.toFixed(2)}
+                    </strong>
+
+                </p>
+
+
+                <button
+                    class="remove"
+                    onclick="removeItem(${index})"
+                >
+                    Remove item
+                </button>
+
+            </div>
+
+        `;
+
+
+        container.appendChild(div);
+
+    });
+
+
+    // =================================
+    // TOTAL
+    // =================================
+
+    subtotalBox.textContent =
+        `₹${total.toFixed(2)}`;
+
+
+    totalBox.textContent =
+        `₹${total.toFixed(2)}`;
+}
+
+
+
+// =====================================
+// INCREASE QUANTITY
+// =====================================
+
+function increaseQuantity(index) {
+
+    cart[index].quantity++;
+
+    saveCart();
+}
+
+
+
+// =====================================
+// DECREASE QUANTITY
+// =====================================
+
+function decreaseQuantity(index) {
+
+    if (
+        cart[index].quantity > 1
+    ) {
+
+        cart[index].quantity--;
+
+    } else {
+
+        cart.splice(index, 1);
+
+    }
+
+
+    saveCart();
+}
+
+
+
+// =====================================
+// REMOVE ITEM
+// =====================================
+
+function removeItem(index) {
+
+    cart.splice(index, 1);
+
+    saveCart();
+}
+
+
+
+// =====================================
+// SAVE CART
+// =====================================
+
+function saveCart() {
+
+    localStorage.setItem(
+        "cart",
+        JSON.stringify(cart)
+    );
+
+
+    displayCart();
+}
+
+
+
+// =====================================
+// PLACE ORDER
+// =====================================
+
+document
+    .getElementById("checkoutButton")
+    .addEventListener(
+        "click",
+        async function () {
+
+
+            const loggedInUser =
+                JSON.parse(
+                    localStorage.getItem(
+                        "loggedInUser"
+                    )
+                );
+
+
+            // =========================
+            // LOGIN CHECK
+            // =========================
+
+            if (!loggedInUser) {
+
+                alert(
+                    "Please login before placing an order."
+                );
+
+
+                window.location.href =
+                    "login.html";
+
+
+                return;
+            }
+
+
+            // =========================
+            // CART CHECK
+            // =========================
+
+            if (cart.length === 0) {
+
+                alert(
+                    "Your cart is empty."
+                );
+
+
+                return;
+            }
+
+
+            try {
+
+                const response =
+                    await fetch(
+                        "http://localhost:5000/api/orders",
+                        {
+
+                            method: "POST",
+
+                            headers: {
+
+                                "Content-Type":
+                                    "application/json"
+
+                            },
+
+                            body:
+                                JSON.stringify({
+
+                                    user_id:
+                                        loggedInUser.id,
+
+                                    items:
+                                        cart
+
+                                })
+
+                        }
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                // =========================
+                // SUCCESS
+                // =========================
+
+                if (response.ok) {
+
+                    document
+                        .getElementById(
+                            "orderMessage"
+                        )
+                        .textContent =
+                        "🎉 Order placed successfully!";
+
+
+                    cart = [];
+
+
+                    localStorage.removeItem(
+                        "cart"
+                    );
+
+
+                    displayCart();
+
+
+                    setTimeout(() => {
+
+                        window.location.href =
+                            "orders.html";
+
+                    }, 1500);
+
+
+                } else {
+
+                    document
+                        .getElementById(
+                            "orderMessage"
+                        )
+                        .textContent =
+                        data.message ||
+                        "Failed to place order.";
+
+                }
+
+
+            } catch (error) {
+
+                console.error(
+                    "Order error:",
+                    error
+                );
+
+
+                document
+                    .getElementById(
+                        "orderMessage"
+                    )
+                    .textContent =
+                    "Unable to connect to server.";
+
+            }
+
+        }
+    );
+
+
+
+// =====================================
+// START
+// =====================================
+
+displayCart();
+
+</script>
+
+
+</body>
+
+</html>

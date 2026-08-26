@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Create Account | ZEVORA</title>
+
+
+    <style>
+
+        /* =====================================
+           RESET
+        ===================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        /* =====================================
+           BODY
+        ===================================== */
+
+        body {
+
+            min-height: 100vh;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #f5dfe8,
+                    #ead4e1,
+                    #d9c7dc
+                );
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 20px;
+
+            position: relative;
+
+            overflow: hidden;
+        }
+
+
+        /* =====================================
+           DECORATIVE CIRCLES
+        ===================================== */
+
+        body::before {
+
+            content: "";
+
+            position: absolute;
+
+            width: 350px;
+
+            height: 350px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(255,255,255,0.25);
+
+            top: -130px;
+
+            left: -100px;
+        }
+
+
+        body::after {
+
+            content: "";
+
+            position: absolute;
+
+            width: 300px;
+
+            height: 300px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(255,255,255,0.20);
+
+            bottom: -120px;
+
+            right: -80px;
+        }
+
+
+        /* =====================================
+           WRAPPER
+        ===================================== */
+
+        .register-wrapper {
+
+            width: 100%;
+
+            max-width: 430px;
+
+            position: relative;
+
+            z-index: 2;
+        }
+
+
+        /* =====================================
+           LOGO
+        ===================================== */
+
+        .logo {
+
+            text-align: center;
+
+            color: #4b3045;
+
+            font-size: 28px;
+
+            font-weight: 800;
+
+            letter-spacing: 1px;
+
+            margin-bottom: 20px;
+        }
+
+
+        .logo span {
+
+            color: #8b526f;
+        }
+
+
+        /* =====================================
+           REGISTER CARD
+        ===================================== */
+
+        .register-card {
+
+            background:
+                rgba(255,255,255,0.94);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.8);
+
+            border-radius: 18px;
+
+            padding: 38px;
+
+            box-shadow:
+                0 20px 50px
+                rgba(91,54,76,0.18);
+
+            backdrop-filter:
+                blur(10px);
+        }
+
+
+        .register-card h1 {
+
+            font-size: 28px;
+
+            color: #3f2b3a;
+
+            margin-bottom: 8px;
+        }
+
+
+        .subtitle {
+
+            color: #806d79;
+
+            font-size: 14px;
+
+            margin-bottom: 28px;
+
+            line-height: 1.5;
+        }
+
+
+        /* =====================================
+           FORM
+        ===================================== */
+
+        .form-group {
+
+            margin-bottom: 18px;
+        }
+
+
+        .form-group label {
+
+            display: block;
+
+            font-size: 14px;
+
+            font-weight: 700;
+
+            color: #513b4b;
+
+            margin-bottom: 8px;
+        }
+
+
+        .form-group input {
+
+            width: 100%;
+
+            padding: 13px 14px;
+
+            border:
+                1px solid
+                #d9cbd4;
+
+            border-radius: 9px;
+
+            outline: none;
+
+            font-size: 15px;
+
+            color: #3f2b3a;
+
+            background: #fffafd;
+
+            transition:
+                border-color 0.2s,
+                box-shadow 0.2s,
+                background 0.2s;
+        }
+
+
+        .form-group input::placeholder {
+
+            color: #aaa0a8;
+        }
+
+
+        .form-group input:focus {
+
+            border-color: #a56888;
+
+            background: white;
+
+            box-shadow:
+                0 0 0 4px
+                rgba(165,104,136,0.12);
+        }
+
+
+        /* =====================================
+           REGISTER BUTTON
+        ===================================== */
+
+        .register-button {
+
+            width: 100%;
+
+            padding: 14px;
+
+            border: none;
+
+            border-radius: 9px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #8b526f,
+                    #a96889
+                );
+
+            color: white;
+
+            font-size: 15px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            margin-top: 5px;
+
+            box-shadow:
+                0 7px 18px
+                rgba(139,82,111,0.22);
+
+            transition:
+                transform 0.2s,
+                box-shadow 0.2s;
+        }
+
+
+        .register-button:hover {
+
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+                0 10px 22px
+                rgba(139,82,111,0.30);
+        }
+
+
+        .register-button:active {
+
+            transform:
+                translateY(0);
+        }
+
+
+        /* =====================================
+           MESSAGE
+        ===================================== */
+
+        #message {
+
+            text-align: center;
+
+            margin-top: 15px;
+
+            font-size: 14px;
+
+            font-weight: 600;
+        }
+
+
+        /* =====================================
+           LOGIN LINK
+        ===================================== */
+
+        .login-text {
+
+            text-align: center;
+
+            margin-top: 25px;
+
+            color: #806d79;
+
+            font-size: 14px;
+        }
+
+
+        .login-text a {
+
+            color: #8b526f;
+
+            font-weight: 700;
+
+            text-decoration: none;
+
+            margin-left: 3px;
+        }
+
+
+        .login-text a:hover {
+
+            text-decoration: underline;
+        }
+
+
+        /* =====================================
+           BACK TO STORE
+        ===================================== */
+
+        .back-store {
+
+            display: block;
+
+            text-align: center;
+
+            margin-top: 20px;
+
+            color: #674b5c;
+
+            text-decoration: none;
+
+            font-size: 14px;
+
+            font-weight: 600;
+        }
+
+
+        .back-store:hover {
+
+            color: #8b526f;
+        }
+
+
+        /* =====================================
+           MOBILE
+        ===================================== */
+
+        @media (max-width: 480px) {
+
+            body {
+
+                padding: 15px;
+            }
+
+
+            .register-card {
+
+                padding: 30px 22px;
+
+                border-radius: 15px;
+            }
+
+
+            .logo {
+
+                font-size: 24px;
+
+                margin-bottom: 17px;
+            }
+
+
+            .register-card h1 {
+
+                font-size: 25px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="register-wrapper">
+
+
+    <!-- =====================================
+         LOGO
+    ===================================== -->
+
+    <div class="logo">
+
+        🛍️ <span>ZEVORA</span>
+
+    </div>
+
+
+    <!-- =====================================
+         REGISTER CARD
+    ===================================== -->
+
+    <div class="register-card">
+
+
+        <h1>
+            Create your account
+        </h1>
+
+
+        <p class="subtitle">
+
+            Join ZEVORA and start shopping
+            your favorite products.
+
+        </p>
+
+
+        <!-- =====================================
+             REGISTER FORM
+        ===================================== -->
+
+        <form id="registerForm">
+
+
+            <div class="form-group">
+
+                <label for="name">
+                    Full Name
+                </label>
+
+
+                <input
+                    type="text"
+                    id="name"
+                    placeholder="Enter your full name"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="email">
+                    Email
+                </label>
+
+
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="Enter your email"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="password">
+                    Password
+                </label>
+
+
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Create a password"
+                    required
+                >
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="register-button"
+            >
+
+                Create ZEVORA Account
+
+            </button>
+
+
+        </form>
+
+
+        <!-- =====================================
+             MESSAGE
+        ===================================== -->
+
+        <p id="message"></p>
+
+
+        <!-- =====================================
+             LOGIN
+        ===================================== -->
+
+        <p class="login-text">
+
+            Already have an account?
+
+            <a href="login.html">
+                Login
+            </a>
+
+        </p>
+
+
+    </div>
+
+
+    <!-- =====================================
+         BACK TO STORE
+    ===================================== -->
+
+    <a
+        href="index.html"
+        class="back-store"
+    >
+
+        ← Back to ZEVORA
+
+    </a>
+
+
+</div>
+
+
+<!-- =====================================
+     REGISTER JAVASCRIPT
+===================================== -->
+
+<script src="register.js"></script>
+
+
+</body>
+
+</html>

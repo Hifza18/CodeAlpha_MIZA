@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>My Orders | ZEVORA</title>
+
+
+    <style>
+
+        /* =====================================
+           RESET
+        ===================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        /* =====================================
+           BODY
+        ===================================== */
+
+        body {
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background: #f8f7f4;
+
+            color: #30332f;
+
+            min-height: 100vh;
+        }
+
+
+        /* =====================================
+           HEADER
+        ===================================== */
+
+        header {
+
+            background: #e8eee8;
+
+            padding: 18px 40px;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            border-bottom: 1px solid #d8ded8;
+
+            box-shadow:
+                0 2px 10px rgba(60, 70, 60, 0.06);
+        }
+
+
+        .logo {
+
+            font-size: 22px;
+
+            font-weight: 700;
+
+            color: #52665a;
+        }
+
+
+        .continue-shopping {
+
+            text-decoration: none;
+
+            color: #52665a;
+
+            border: 1px solid #aebdaf;
+
+            padding: 9px 15px;
+
+            border-radius: 7px;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            transition: 0.2s;
+        }
+
+
+        .continue-shopping:hover {
+
+            background: #dce6dc;
+        }
+
+
+        /* =====================================
+           MAIN
+        ===================================== */
+
+        main {
+
+            max-width: 1000px;
+
+            margin: auto;
+
+            padding: 45px 25px 70px;
+        }
+
+
+        .page-title {
+
+            margin-bottom: 30px;
+        }
+
+
+        .page-title h1 {
+
+            font-size: 32px;
+
+            color: #30332f;
+
+            margin-bottom: 8px;
+        }
+
+
+        .page-title p {
+
+            color: #777d76;
+
+            font-size: 14px;
+        }
+
+
+        /* =====================================
+           ORDERS CONTAINER
+        ===================================== */
+
+        #ordersContainer {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 20px;
+        }
+
+
+        /* =====================================
+           ORDER CARD
+        ===================================== */
+
+        .order {
+
+            background: white;
+
+            border: 1px solid #e1e5df;
+
+            border-radius: 12px;
+
+            padding: 25px;
+
+            box-shadow:
+                0 4px 15px
+                rgba(70, 80, 70, 0.06);
+        }
+
+
+        .order-header {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            border-bottom: 1px solid #eceeea;
+
+            padding-bottom: 15px;
+
+            margin-bottom: 18px;
+        }
+
+
+        .order-header h2 {
+
+            font-size: 19px;
+
+            color: #52665a;
+        }
+
+
+        .order-date {
+
+            font-size: 13px;
+
+            color: #858b84;
+        }
+
+
+        /* =====================================
+           ORDER INFORMATION
+        ===================================== */
+
+        .order-info {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 12px;
+
+            margin-bottom: 20px;
+        }
+
+
+        .info-box {
+
+            background: #f7f9f6;
+
+            padding: 12px;
+
+            border-radius: 7px;
+        }
+
+
+        .info-box span {
+
+            display: block;
+
+            color: #858b84;
+
+            font-size: 12px;
+
+            margin-bottom: 5px;
+        }
+
+
+        .info-box strong {
+
+            color: #30332f;
+
+            font-size: 15px;
+        }
+
+
+        /* =====================================
+           STATUS
+        ===================================== */
+
+        .status {
+
+            display: inline-block;
+
+            padding: 7px 13px;
+
+            border-radius: 20px;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            text-transform: capitalize;
+        }
+
+
+        .status.pending {
+
+            background: #fff4d8;
+
+            color: #9a7415;
+        }
+
+
+        .status.confirmed {
+
+            background: #e4f0e7;
+
+            color: #477454;
+        }
+
+
+        .status.shipped {
+
+            background: #e4edf4;
+
+            color: #486b83;
+        }
+
+
+        .status.delivered {
+
+            background: #dfeee3;
+
+            color: #356b43;
+        }
+
+
+        .status.cancelled {
+
+            background: #f6e3e3;
+
+            color: #a44c4c;
+        }
+
+
+        /* =====================================
+           PRODUCTS
+        ===================================== */
+
+        .products-title {
+
+            font-size: 16px;
+
+            margin-bottom: 12px;
+
+            color: #52665a;
+        }
+
+
+        .order-item {
+
+            background: #fafbf9;
+
+            border: 1px solid #edf0eb;
+
+            padding: 13px;
+
+            margin-bottom: 8px;
+
+            border-radius: 7px;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 15px;
+        }
+
+
+        .item-name {
+
+            font-weight: 700;
+
+            color: #3c433d;
+
+            font-size: 14px;
+        }
+
+
+        .item-details {
+
+            color: #777d76;
+
+            font-size: 13px;
+
+            margin-top: 5px;
+        }
+
+
+        .item-price {
+
+            font-weight: 700;
+
+            color: #52665a;
+
+            white-space: nowrap;
+        }
+
+
+        /* =====================================
+           EMPTY ORDERS
+        ===================================== */
+
+        .empty-orders {
+
+            background: white;
+
+            border: 1px solid #e1e5df;
+
+            border-radius: 12px;
+
+            text-align: center;
+
+            padding: 70px 25px;
+
+            box-shadow:
+                0 4px 15px
+                rgba(70, 80, 70, 0.05);
+        }
+
+
+        .empty-orders .icon {
+
+            font-size: 55px;
+
+            margin-bottom: 18px;
+        }
+
+
+        .empty-orders h2 {
+
+            margin-bottom: 8px;
+
+            color: #30332f;
+        }
+
+
+        .empty-orders p {
+
+            color: #777d76;
+
+            margin-bottom: 22px;
+
+            font-size: 14px;
+        }
+
+
+        .shop-button {
+
+            display: inline-block;
+
+            text-decoration: none;
+
+            background: #52665a;
+
+            color: white;
+
+            padding: 12px 22px;
+
+            border-radius: 7px;
+
+            font-size: 14px;
+
+            font-weight: 700;
+
+            transition: 0.2s;
+        }
+
+
+        .shop-button:hover {
+
+            background: #435449;
+        }
+
+
+        /* =====================================
+           LOADING
+        ===================================== */
+
+        .loading {
+
+            text-align: center;
+
+            padding: 50px;
+
+            color: #777d76;
+        }
+
+
+        /* =====================================
+           ERROR
+        ===================================== */
+
+        .error {
+
+            background: #fff1f1;
+
+            border: 1px solid #efd0d0;
+
+            color: #a44c4c;
+
+            padding: 20px;
+
+            border-radius: 8px;
+
+            text-align: center;
+        }
+
+
+        /* =====================================
+           RESPONSIVE
+        ===================================== */
+
+        @media (max-width: 650px) {
+
+            header {
+
+                padding: 15px 20px;
+            }
+
+
+            main {
+
+                padding: 30px 15px 50px;
+            }
+
+
+            .page-title h1 {
+
+                font-size: 27px;
+            }
+
+
+            .order {
+
+                padding: 18px;
+            }
+
+
+            .order-header {
+
+                flex-direction: column;
+
+                align-items: flex-start;
+
+                gap: 8px;
+            }
+
+
+            .order-info {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .order-item {
+
+                flex-direction: column;
+
+                align-items: flex-start;
+            }
+
+
+            .item-price {
+
+                align-self: flex-end;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================
+     HEADER
+===================================== -->
+
+<header>
+
+    <div class="logo">
+        🛍️ ZEVORA
+    </div>
+
+
+    <a
+        href="index.html"
+        class="continue-shopping"
+    >
+        ← Continue Shopping
+    </a>
+
+</header>
+
+
+
+<!-- =====================================
+     MAIN
+===================================== -->
+
+<main>
+
+
+    <div class="page-title">
+
+        <h1>
+            My Orders
+        </h1>
+
+        <p>
+            View and track all your ZEVORA orders.
+        </p>
+
+    </div>
+
+
+    <div id="ordersContainer">
+
+        <div class="loading">
+            Loading your orders...
+        </div>
+
+    </div>
+
+
+</main>
+
+
+
+<script>
+
+
+// =====================================
+// API
+// =====================================
+
+const ORDERS_API =
+    "http://localhost:5000/api/orders";
+
+
+// =====================================
+// LOAD ORDERS
+// =====================================
+
+async function loadOrders() {
+
+    const container =
+        document.getElementById(
+            "ordersContainer"
+        );
+
+
+    // =================================
+    // GET LOGGED-IN USER
+    // =================================
+
+    const loggedInUser =
+        JSON.parse(
+            localStorage.getItem(
+                "loggedInUser"
+            )
+        );
+
+
+    // =================================
+    // LOGIN CHECK
+    // =================================
+
+    if (!loggedInUser) {
+
+        container.innerHTML = `
+
+            <div class="empty-orders">
+
+                <div class="icon">
+                    🔐
+                </div>
+
+                <h2>
+                    Please Login
+                </h2>
+
+                <p>
+                    Login to view your orders.
+                </p>
+
+                <a
+                    href="login.html"
+                    class="shop-button"
+                >
+                    Login
+                </a>
+
+            </div>
+
+        `;
+
+        return;
+    }
+
+
+    try {
+
+
+        // =================================
+        // FETCH ORDERS
+        // =================================
+
+        const response =
+            await fetch(
+                `${ORDERS_API}/${loggedInUser.id}`
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Failed to load orders"
+            );
+        }
+
+
+        const orders =
+            await response.json();
+
+
+        container.innerHTML = "";
+
+
+        // =================================
+        // NO ORDERS
+        // =================================
+
+        if (
+            !orders ||
+            orders.length === 0
+        ) {
+
+            container.innerHTML = `
+
+                <div class="empty-orders">
+
+                    <div class="icon">
+                        📦
+                    </div>
+
+                    <h2>
+                        No Orders Yet
+                    </h2>
+
+                    <p>
+                        You haven't placed any
+                        orders yet.
+                    </p>
+
+                    <a
+                        href="index.html"
+                        class="shop-button"
+                    >
+                        Start Shopping
+                    </a>
+
+                </div>
+
+            `;
+
+            return;
+        }
+
+
+        // =================================
+        // DISPLAY ORDERS
+        // =================================
+
+        orders.forEach(order => {
+
+
+            const div =
+                document.createElement(
+                    "div"
+                );
+
+
+            div.className =
+                "order";
+
+
+            // =================================
+            // ITEMS HTML
+            // =================================
+
+            let itemsHTML = "";
+
+
+            if (
+                order.items &&
+                order.items.length > 0
+            ) {
+
+
+                order.items.forEach(
+                    item => {
+
+
+                        const quantity =
+                            Number(
+                                item.quantity
+                            ) || 1;
+
+
+                        const price =
+                            Number(
+                                item.price
+                            ) || 0;
+
+
+                        const subtotal =
+                            quantity * price;
+
+
+                        itemsHTML += `
+
+                            <div class="order-item">
+
+                                <div>
+
+                                    <div class="item-name">
+                                        ${item.name}
+                                    </div>
+
+                                    <div class="item-details">
+
+                                        Quantity:
+                                        ${quantity}
+
+                                        &nbsp; × &nbsp;
+
+                                        ₹${price.toFixed(2)}
+
+                                    </div>
+
+                                </div>
+
+
+                                <div class="item-price">
+
+                                    ₹${subtotal.toFixed(2)}
+
+                                </div>
+
+                            </div>
+
+                        `;
+
+                    }
+                );
+
+            } else {
+
+                itemsHTML = `
+
+                    <p>
+                        No products found.
+                    </p>
+
+                `;
+
+            }
+
+
+            // =================================
+            // ORDER STATUS
+            // =================================
+
+            const status =
+                order.status ||
+                "pending";
+
+
+            // =================================
+            // ORDER HTML
+            // =================================
+
+            div.innerHTML = `
+
+                <div class="order-header">
+
+                    <h2>
+                        Order #${order.id}
+                    </h2>
+
+                    <span class="order-date">
+
+                        ${new Date(
+                            order.created_at
+                        ).toLocaleString()}
+
+                    </span>
+
+                </div>
+
+
+                <div class="order-info">
+
+
+                    <div class="info-box">
+
+                        <span>
+                            Total Amount
+                        </span>
+
+                        <strong>
+                            ₹${Number(
+                                order.total_amount
+                            ).toFixed(2)}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="info-box">
+
+                        <span>
+                            Order Status
+                        </span>
+
+                        <span
+                            class="status ${status}"
+                        >
+                            ${status}
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+
+                <h3 class="products-title">
+                    Products
+                </h3>
+
+
+                <div>
+
+                    ${itemsHTML}
+
+                </div>
+
+            `;
+
+
+            container.appendChild(div);
+
+        });
+
+
+    } catch (error) {
+
+
+        console.error(
+            "Orders error:",
+            error
+        );
+
+
+        container.innerHTML = `
+
+            <div class="error">
+
+                Unable to load your orders.
+
+                <br><br>
+
+                ${error.message}
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+// =====================================
+// START
+// =====================================
+
+loadOrders();
+
+</script>
+
+
+</body>
+
+</html>

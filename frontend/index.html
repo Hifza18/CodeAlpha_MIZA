@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>ZEVORA - Online Store</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================
+     NAVBAR
+========================================= -->
+
+<header class="navbar">
+
+    <div class="logo">
+        🛒 ZEVORA
+    </div>
+
+
+    <div class="search-container">
+
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="Search products..."
+        >
+
+        <button id="searchButton">
+            🔍
+        </button>
+
+    </div>
+
+
+    <div class="nav-actions">
+
+        <span id="welcomeUser"></span>
+
+
+        <button id="loginButton">
+            Login
+        </button>
+
+
+        <button
+            id="logoutButton"
+            style="display: none;"
+        >
+            Logout
+        </button>
+
+
+        <button id="ordersButton">
+            📦 Orders
+        </button>
+
+
+        <button id="cartButton">
+            Cart 🛍️
+        </button>
+
+    </div>
+
+</header>
+
+
+
+<!-- =========================================
+     CATEGORY BAR
+========================================= -->
+
+<nav class="category-bar">
+
+    <button
+        class="category-btn active"
+        data-category="all"
+    >
+        All
+    </button>
+
+    <button
+        class="category-btn"
+        data-category="Electronics"
+    >
+        Electronics
+    </button>
+
+    <button
+        class="category-btn"
+        data-category="Fashion"
+    >
+        Fashion
+    </button>
+
+    <button
+        class="category-btn"
+        data-category="Home"
+    >
+        Home
+    </button>
+
+    <button
+        class="category-btn"
+        data-category="Accessories"
+    >
+        Accessories
+    </button>
+
+</nav>
+
+
+
+<!-- =========================================
+     HERO SECTION
+========================================= -->
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <p class="hero-small">
+            WELCOME TO ZEVORA
+        </p>
+
+        <h1>
+            Smart Shopping.<br>
+            Simple Living.
+        </h1>
+
+        <p>
+            Discover quality products at prices
+            you'll love.
+        </p>
+
+        <button id="shopNowButton">
+            Shop Now →
+        </button>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================
+     MAIN PRODUCTS
+========================================= -->
+
+<main>
+
+
+    <div class="section-heading">
+
+        <div>
+
+            <p class="section-label">
+                EXPLORE OUR COLLECTION
+            </p>
+
+            <h2>
+                Our Products
+            </h2>
+
+        </div>
+
+
+        <span id="productCount">
+            Loading products...
+        </span>
+
+    </div>
+
+
+    <div
+        id="productsContainer"
+        class="products-container"
+    >
+
+        <div class="loading">
+            Loading products...
+        </div>
+
+    </div>
+
+</main>
+
+
+
+<!-- =========================================
+     FOOTER
+========================================= -->
+
+<footer>
+
+    <div class="footer-content">
+
+        <h3>
+            🛒 ZEVORA
+        </h3>
+
+        <p>
+            Smart Shopping. Simple Living.
+        </p>
+
+        <p>
+            Your trusted online shopping destination.
+        </p>
+
+        <p class="copyright">
+            © 2026 ZEVORA. All rights reserved.
+        </p>
+
+    </div>
+
+</footer>
+
+
+
+<!-- =========================================
+     SCRIPT
+========================================= -->
+
+<script src="script.js"></script>
+
+
+<!-- =========================================
+     SEARCH + CATEGORY SCRIPT
+========================================= -->
+
+<script>
+
+    let currentCategory = "all";
+
+
+    /* =====================================
+       SEARCH
+    ===================================== */
+
+    const searchInput =
+        document.getElementById("searchInput");
+
+
+    const searchButton =
+        document.getElementById("searchButton");
+
+
+    function filterProducts() {
+
+        const searchText =
+            searchInput.value
+                .toLowerCase()
+                .trim();
+
+
+        const container =
+            document.getElementById(
+                "productsContainer"
+            );
+
+
+        const filteredProducts =
+            products.filter(product => {
+
+                const matchesSearch =
+                    product.name
+                        .toLowerCase()
+                        .includes(searchText);
+
+
+                const matchesCategory =
+                    currentCategory === "all" ||
+                    product.category ===
+                    currentCategory;
+
+
+                return (
+                    matchesSearch &&
+                    matchesCategory
+                );
+
+            });
+
+
+        displayFilteredProducts(
+            filteredProducts
+        );
+
+    }
+
+
+    searchInput.addEventListener(
+        "input",
+        filterProducts
+    );
+
+
+    searchButton.addEventListener(
+        "click",
+        filterProducts
+    );
+
+
+
+    /* =====================================
+       CATEGORY FILTER
+    ===================================== */
+
+    const categoryButtons =
+        document.querySelectorAll(
+            ".category-btn"
+        );
+
+
+    categoryButtons.forEach(button => {
+
+        button.addEventListener(
+            "click",
+            () => {
+
+                categoryButtons.forEach(btn => {
+
+                    btn.classList.remove(
+                        "active"
+                    );
+
+                });
+
+
+                button.classList.add(
+                    "active"
+                );
+
+
+                currentCategory =
+                    button.dataset.category;
+
+
+                filterProducts();
+
+            }
+        );
+
+    });
+
+
+
+    /* =====================================
+       DISPLAY FILTERED PRODUCTS
+    ===================================== */
+
+    function displayFilteredProducts(
+        filteredProducts
+    ) {
+
+        const container =
+            document.getElementById(
+                "productsContainer"
+            );
+
+
+        const productCount =
+            document.getElementById(
+                "productCount"
+            );
+
+
+        container.innerHTML = "";
+
+
+        productCount.textContent =
+            `${filteredProducts.length} product${
+                filteredProducts.length !== 1
+                    ? "s"
+                    : ""
+            }`;
+
+
+        if (
+            filteredProducts.length === 0
+        ) {
+
+            container.innerHTML = `
+
+                <div class="loading">
+
+                    <h3>
+                        No products found
+                    </h3>
+
+                    <p>
+                        Try another search.
+                    </p>
+
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+
+        filteredProducts.forEach(
+            product => {
+
+                const card =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                card.className =
+                    "product-card";
+
+
+                let imageHTML = "";
+
+
+                if (product.image_url) {
+
+                    imageHTML = `
+
+                        <img
+                            src="${product.image_url}"
+                            alt="${product.name}"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                        >
+
+                        <div
+                            style="
+                                display:none;
+                                align-items:center;
+                                justify-content:center;
+                            "
+                        >
+                            🛍️
+                        </div>
+
+                    `;
+
+                } else {
+
+                    imageHTML = `
+
+                        <div
+                            style="
+                                display:flex;
+                                align-items:center;
+                                justify-content:center;
+                                font-size:50px;
+                            "
+                        >
+                            🛍️
+                        </div>
+
+                    `;
+
+                }
+
+
+                const stock =
+                    Number(product.stock) || 0;
+
+
+                card.innerHTML = `
+
+                    ${imageHTML}
+
+
+                    <h3>
+                        ${product.name}
+                    </h3>
+
+
+                    <p>
+                        ${
+                            product.description ||
+                            "Quality product from ZEVORA."
+                        }
+                    </p>
+
+
+                    <p>
+                        <strong>
+                            ₹${Number(
+                                product.price
+                            ).toFixed(2)}
+                        </strong>
+                    </p>
+
+
+                    <p>
+                        ${
+                            stock > 0
+                                ? `Stock: ${stock}`
+                                : "Out of Stock"
+                        }
+                    </p>
+
+
+                    <button
+                        onclick="addToCart(${product.id})"
+                        ${stock <= 0
+                            ? "disabled"
+                            : ""}
+                    >
+
+                        ${
+                            stock > 0
+                                ? "Add to Cart 🛒"
+                                : "Out of Stock"
+                        }
+
+                    </button>
+
+                `;
+
+
+                container.appendChild(card);
+
+            }
+        );
+
+    }
+
+
+
+    /* =====================================
+       SHOP NOW
+    ===================================== */
+
+    document
+        .getElementById("shopNowButton")
+        .addEventListener(
+            "click",
+            () => {
+
+                document
+                    .getElementById(
+                        "productsContainer"
+                    )
+                    .scrollIntoView({
+                        behavior: "smooth"
+                    });
+
+            }
+        );
+
+
+
+    /* =====================================
+       UPDATE PRODUCT DISPLAY
+       AFTER PRODUCTS LOAD
+    ===================================== */
+
+    const originalLoadProducts =
+        loadProducts;
+
+
+    loadProducts = async function() {
+
+        await originalLoadProducts();
+
+        displayFilteredProducts(
+            products
+        );
+
+    };
+
+
+</script>
+
+
+</body>
+
+</html>
