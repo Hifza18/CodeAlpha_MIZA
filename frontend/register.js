@@ -1,4 +1,4 @@
-const API_URL = "https://zevora-no6r.onrender.com/api/auth";
+const API_URL = "https://MIZAH-no6r.onrender.com/api/auth";
 
 const registerForm = document.getElementById("registerForm");
 const message = document.getElementById("message");

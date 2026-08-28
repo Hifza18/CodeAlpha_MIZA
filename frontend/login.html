@@ -3,73 +3,331 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+```
+<meta charset="UTF-8">
 
-<title>Login - ZEVORA</title>
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
 
-<link rel="stylesheet" href="style.css">
+<title>Login - MIZA</title>
 
+<style>
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        background: #F5F3EE;
+        color: #29332D;
+        min-height: 100vh;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        padding: 20px;
+    }
+
+    .login-wrapper {
+        width: 100%;
+        max-width: 430px;
+    }
+
+    .brand {
+        text-align: center;
+        margin-bottom: 25px;
+    }
+
+    .brand h1 {
+        color: #53665A;
+        font-size: 30px;
+        letter-spacing: 1px;
+        margin-bottom: 8px;
+    }
+
+    .brand p {
+        color: #68736C;
+        font-size: 14px;
+    }
+
+    .login-card {
+        background: white;
+        border: 1px solid #DCE4DE;
+        border-radius: 16px;
+        padding: 35px;
+
+        box-shadow:
+            0 10px 30px
+            rgba(41, 51, 45, 0.10);
+    }
+
+    .login-card h2 {
+        text-align: center;
+        color: #53665A;
+        font-size: 25px;
+        margin-bottom: 8px;
+    }
+
+    .login-subtitle {
+        text-align: center;
+        color: #68736C;
+        font-size: 14px;
+        margin-bottom: 28px;
+    }
+
+    .form-group {
+        margin-bottom: 18px;
+    }
+
+    .form-group label {
+        display: block;
+        font-size: 13px;
+        font-weight: bold;
+        color: #53665A;
+        margin-bottom: 7px;
+    }
+
+    .form-group input {
+        width: 100%;
+        padding: 13px 14px;
+
+        border: 1px solid #BFCBC2;
+        border-radius: 8px;
+
+        background: #FAFBFA;
+        color: #29332D;
+
+        font-size: 14px;
+
+        outline: none;
+
+        transition: 0.2s;
+    }
+
+    .form-group input:focus {
+        border-color: #789080;
+
+        box-shadow:
+            0 0 0 3px
+            rgba(120, 144, 128, 0.12);
+    }
+
+    .login-button {
+        width: 100%;
+
+        padding: 14px;
+
+        margin-top: 5px;
+
+        background: #53665A;
+        color: white;
+
+        border: none;
+        border-radius: 8px;
+
+        font-size: 15px;
+        font-weight: bold;
+
+        cursor: pointer;
+
+        transition: 0.2s;
+    }
+
+    .login-button:hover {
+        background: #789080;
+        transform: translateY(-1px);
+    }
+
+    #message {
+        text-align: center;
+        margin-top: 16px;
+
+        font-size: 14px;
+        font-weight: bold;
+
+        min-height: 20px;
+    }
+
+    .register-text {
+        text-align: center;
+
+        color: #68736C;
+
+        font-size: 14px;
+
+        margin-top: 25px;
+    }
+
+    .register-text a {
+        color: #53665A;
+        font-weight: bold;
+        text-decoration: none;
+    }
+
+    .register-text a:hover {
+        text-decoration: underline;
+    }
+
+    .back-link {
+        display: block;
+
+        text-align: center;
+
+        margin-top: 20px;
+
+        color: #53665A;
+
+        text-decoration: none;
+
+        font-size: 13px;
+    }
+
+    .back-link:hover {
+        text-decoration: underline;
+    }
+
+    .footer-text {
+        text-align: center;
+
+        margin-top: 25px;
+
+        color: #8A938D;
+
+        font-size: 12px;
+    }
+
+    @media (max-width: 500px) {
+
+        body {
+            padding: 15px;
+        }
+
+        .login-card {
+            padding: 28px 22px;
+        }
+
+        .brand h1 {
+            font-size: 26px;
+        }
+
+    }
+
+</style>
+```
 
 </head>
 
 <body>
 
+```
+<div class="login-wrapper">
 
-<header>
-    <h1>🛒 ZEVORA</h1>
-</header>
+    <div class="brand">
 
-<main>
-
-    <div class="product-card">
-
-        <h2>Login</h2>
-
-        <form id="loginForm">
-
-            <input
-                type="email"
-                id="email"
-                placeholder="Email"
-                required
-            >
-
-            <br><br>
-
-            <input
-                type="password"
-                id="password"
-                placeholder="Password"
-                required
-            >
-
-            <br><br>
-
-            <button type="submit">
-                Login
-            </button>
-
-        </form>
-
-        <p id="message"></p>
+        <h1>🛍️ MIZA</h1>
 
         <p>
-            Don't have an account?
-            <a href="register.html">Register</a>
-        </p>
-
-        <p>
-            <a href="index.html">← Back to ZEVORA</a>
+            Smart Shopping. Simple Living.
         </p>
 
     </div>
 
-</main>
+
+    <div class="login-card">
+
+        <h2>
+            Welcome Back
+        </h2>
+
+        <p class="login-subtitle">
+            Login to continue shopping
+        </p>
+
+
+        <form id="loginForm">
+
+            <div class="form-group">
+
+                <label for="email">
+                    Email Address
+                </label>
+
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="Enter your email"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="password">
+                    Password
+                </label>
+
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Enter your password"
+                    required
+                >
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="login-button"
+            >
+                Login →
+            </button>
+
+        </form>
+
+
+        <p id="message"></p>
+
+
+        <p class="register-text">
+
+            Don't have an account?
+
+            <a href="register.html">
+                Create one
+            </a>
+
+        </p>
+
+
+        <a
+            href="index.html"
+            class="back-link"
+        >
+            ← Back to MIZA
+        </a>
+
+    </div>
+
+
+    <p class="footer-text">
+        © 2026 MIZA. All rights reserved.
+    </p>
+
+</div>
+
 
 <script src="login.js"></script>
-
+```
 
 </body>
 
