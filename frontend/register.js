@@ -1,18 +1,30 @@
+const API_URL = "https://zevora-no6r.onrender.com/api/auth";
+
 const registerForm = document.getElementById("registerForm");
 const message = document.getElementById("message");
+
+if (registerForm) {
+
 
 registerForm.addEventListener("submit", async (event) => {
 
     event.preventDefault();
 
-    const name = document.getElementById("name").value;
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
+    const name =
+        document.getElementById("name").value.trim();
+
+    const email =
+        document.getElementById("email").value.trim();
+
+    const password =
+        document.getElementById("password").value;
+
+    message.textContent = "Creating your account...";
 
     try {
 
         const response = await fetch(
-            "https://zevora-no6r.onrender.com/api/auth/register",
+            `${API_URL}/register`,
             {
                 method: "POST",
 
@@ -31,17 +43,33 @@ registerForm.addEventListener("submit", async (event) => {
         const data = await response.json();
 
         if (response.ok) {
-            message.textContent = "Registration successful! 🎉";
+
+            message.textContent =
+                "Registration successful! 🎉";
+
             registerForm.reset();
+
         } else {
-            message.textContent = data.message;
+
+            message.textContent =
+                data.message ||
+                "Registration failed.";
+
         }
 
     } catch (error) {
 
-        console.error(error);
+        console.error(
+            "Registration error:",
+            error
+        );
 
         message.textContent =
             "Unable to connect to the server.";
+
     }
+
 });
+
+
+}

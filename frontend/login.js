@@ -1,17 +1,27 @@
+const API_URL = "https://zevora-no6r.onrender.com/api/auth";
+
 const loginForm = document.getElementById("loginForm");
 const message = document.getElementById("message");
+
+if (loginForm) {
+
 
 loginForm.addEventListener("submit", async (event) => {
 
     event.preventDefault();
 
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
+    const email =
+        document.getElementById("email").value.trim();
+
+    const password =
+        document.getElementById("password").value;
+
+    message.textContent = "Logging in...";
 
     try {
 
         const response = await fetch(
-            "https://zevora-no6r.onrender.com/api/auth/login",
+            `${API_URL}/login`,
             {
                 method: "POST",
 
@@ -35,22 +45,36 @@ loginForm.addEventListener("submit", async (event) => {
                 JSON.stringify(data.user)
             );
 
-            message.textContent = "Login successful! 🎉";
+            message.textContent =
+                "Login successful! 🎉";
 
             setTimeout(() => {
-                window.location.href = "index.html";
+
+                window.location.href =
+                    "index.html";
+
             }, 1000);
 
         } else {
 
-            message.textContent = data.message;
+            message.textContent =
+                data.message ||
+                "Invalid email or password.";
+
         }
 
     } catch (error) {
 
-        console.error(error);
+        console.error(
+            "Login error:",
+            error
+        );
 
         message.textContent =
             "Unable to connect to the server.";
+
     }
+
 });
+
+}
