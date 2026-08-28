@@ -1,5 +1,4 @@
-const API_URL = "https://MIZAH-no6r.onrender.com/api/products";
-
+const API_URL = "https://zevora-no6r.onrender.com/api/products";
 let products = [];
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 let selectedCategory = "All";
