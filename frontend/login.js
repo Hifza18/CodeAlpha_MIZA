@@ -1,5 +1,4 @@
-const API_URL =
-"https://MIZA-no6r.onrender.com/api/auth";
+const API_URL = "https://zevora-no6r.onrender.com/api/auth";
 
 const loginForm =
 document.getElementById("loginForm");
