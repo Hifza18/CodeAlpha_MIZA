@@ -6,196 +6,214 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-```
+
 <title>ZEVORA - Online Store</title>
 
 <link rel="stylesheet" href="style.css">
-```
 
 </head>
 
 <body>
 
+<!-- =========================================
+     NAVBAR
+========================================== -->
+
 <header class="navbar">
 
-```
-<div class="logo">
-    🛒 ZEVORA
-</div>
+    <div class="logo">
+        🛒 ZEVORA
+    </div>
 
-<div class="search-container">
+    <div class="search-container">
 
-    <input
-        type="text"
-        id="searchInput"
-        placeholder="Search products..."
-    >
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="Search products..."
+        >
 
-    <button id="searchButton">
-        🔍
-    </button>
+        <button id="searchButton">
+            🔍
+        </button>
 
-</div>
+    </div>
 
-<div class="nav-actions">
+    <div class="nav-actions">
 
-    <span id="welcomeUser"></span>
+        <span id="welcomeUser"></span>
 
-    <button id="loginButton">
-        Login
-    </button>
+        <button id="loginButton">
+            Login
+        </button>
 
-    <button
-        id="logoutButton"
-        style="display: none;"
-    >
-        Logout
-    </button>
+        <button
+            id="logoutButton"
+            style="display: none;"
+        >
+            Logout
+        </button>
 
-    <button id="ordersButton">
-        📦 Orders
-    </button>
+        <button id="ordersButton">
+            📦 Orders
+        </button>
 
-    <button id="cartButton">
-        Cart 🛍️
-    </button>
+        <button id="cartButton">
+            Cart 🛍️
+        </button>
 
-</div>
-```
+    </div>
 
 </header>
 
+
+<!-- =========================================
+     CATEGORY BAR
+========================================== -->
+
 <nav class="category-bar">
 
-```
-<button
-    class="category-btn active"
-    data-category="All"
->
-    All
-</button>
+    <button
+        class="category-btn active"
+        data-category="All"
+    >
+        All
+    </button>
 
-<button
-    class="category-btn"
-    data-category="Electronics"
->
-    Electronics
-</button>
+    <button
+        class="category-btn"
+        data-category="Electronics"
+    >
+        Electronics
+    </button>
 
-<button
-    class="category-btn"
-    data-category="Fashion"
->
-    Fashion
-</button>
+    <button
+        class="category-btn"
+        data-category="Fashion"
+    >
+        Fashion
+    </button>
 
-<button
-    class="category-btn"
-    data-category="Home"
->
-    Home
-</button>
+    <button
+        class="category-btn"
+        data-category="Home"
+    >
+        Home
+    </button>
 
-<button
-    class="category-btn"
-    data-category="Accessories"
->
-    Accessories
-</button>
-```
+    <button
+        class="category-btn"
+        data-category="Accessories"
+    >
+        Accessories
+    </button>
 
 </nav>
 
+
+<!-- =========================================
+     HERO SECTION
+========================================== -->
+
 <section class="hero">
 
-```
-<div class="hero-content">
+    <div class="hero-content">
 
-    <p class="hero-small">
-        WELCOME TO ZEVORA
-    </p>
+        <p class="hero-small">
+            WELCOME TO ZEVORA
+        </p>
 
-    <h1>
-        Smart Shopping.<br>
-        Simple Living.
-    </h1>
+        <h1>
+            Smart Shopping.<br>
+            Simple Living.
+        </h1>
 
-    <p>
-        Discover quality products at prices you'll love.
-    </p>
+        <p>
+            Discover quality products at prices you'll love.
+        </p>
 
-    <button id="shopNowButton">
-        Shop Now →
-    </button>
+        <button id="shopNowButton">
+            Shop Now →
+        </button>
 
-</div>
-```
+    </div>
 
 </section>
 
+
+<!-- =========================================
+     PRODUCTS SECTION
+========================================== -->
+
 <main>
 
-```
-<div class="section-heading">
+    <div class="section-heading">
 
-    <div>
+        <div>
 
-        <p class="section-label">
-            EXPLORE OUR COLLECTION
-        </p>
+            <p class="section-label">
+                EXPLORE OUR COLLECTION
+            </p>
 
-        <h2>
-            Our Products
-        </h2>
+            <h2>
+                Our Products
+            </h2>
+
+        </div>
+
+        <span id="productCount">
+            Loading products...
+        </span>
 
     </div>
 
-    <span id="productCount">
-        Loading products...
-    </span>
 
-</div>
+    <div
+        id="productsContainer"
+        class="products-container"
+    >
 
+        <div class="loading">
+            Loading products...
+        </div>
 
-<div
-    id="productsContainer"
-    class="products-container"
->
-
-    <div class="loading">
-        Loading products...
     </div>
-
-</div>
-```
 
 </main>
 
+
+<!-- =========================================
+     FOOTER
+========================================== -->
+
 <footer>
 
-```
-<div class="footer-content">
+    <div class="footer-content">
 
-    <h3>
-        🛒 ZEVORA
-    </h3>
+        <h3>
+            🛒 ZEVORA
+        </h3>
 
-    <p>
-        Smart Shopping. Simple Living.
-    </p>
+        <p>
+            Smart Shopping. Simple Living.
+        </p>
 
-    <p>
-        Your trusted online shopping destination.
-    </p>
+        <p>
+            Your trusted online shopping destination.
+        </p>
 
-    <p class="copyright">
-        © 2026 ZEVORA. All rights reserved.
-    </p>
+        <p class="copyright">
+            © 2026 ZEVORA. All rights reserved.
+        </p>
 
-</div>
-```
+    </div>
 
 </footer>
+
+
+<!-- =========================================
+     JAVASCRIPT
+========================================== -->
 
 <script src="script.js"></script>
 
