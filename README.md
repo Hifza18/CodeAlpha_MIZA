@@ -8,9 +8,9 @@ It allows users to browse products, search and filter products, register and log
 
 ## 🌐 Live Website
 
-Frontend: https://zevora-jsc6167ck-hifza18s-projects.vercel.app/
+Frontend: https://MIZAH-jsc6167ck-hifza18s-projects.vercel.app/
 
-Backend API: https://zevora-no6r.onrender.com/
+Backend API: https://MIZAH-no6r.onrender.com/
 
 ---
 

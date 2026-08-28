@@ -1,10 +1,10 @@
-const API_URL = "https://zevora-no6r.onrender.com/api/products";
+const API_URL = "https://MIZA-no6r.onrender.com/api/products";
 let products = [];
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 let selectedCategory = "All";
 let searchText = "";
 
-// =====================================
+// =====================================git status
 // LOAD PRODUCTS
 // =====================================
 
