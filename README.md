@@ -1,16 +1,18 @@
-# 🛒 ZEVORA – E-Commerce Website
+# 🛒 MIZA – Full-Stack E-Commerce Store
 
-ZEVORA is a full-stack e-commerce web application developed as part of an internship project.
+MIZA is a full-stack e-commerce web application developed as **Task 1 of the CodeAlpha Full Stack Development Internship**.
 
-It allows users to browse products, search and filter products, register and login, add products to a shopping cart, and view their orders.
+The application provides a complete online shopping experience where users can browse products, search and filter products, register and log in, manage their shopping cart, and place and view orders.
 
 ---
 
 ## 🌐 Live Website
 
-Frontend: https://MIZAH-jsc6167ck-hifza18s-projects.vercel.app/
+**Frontend:**
+https://MIZAH-jsc6167ck-hifza18s-projects.vercel.app/
 
-Backend API: https://MIZAH-no6r.onrender.com/
+**Backend API:**
+https://MIZAH-no6r.onrender.com/
 
 ---
 
@@ -18,51 +20,85 @@ Backend API: https://MIZAH-no6r.onrender.com/
 
 ### 👤 User Features
 
-- User registration
-- User login
-- User logout
-- Display logged-in user's name
-- Browse available products
-- Search products
-- Filter products by category
-- View product price and stock
-- Add products to cart
-- View shopping cart
-- Manage cart items
-- View orders
-- Responsive interface
+* User registration
+* User login and logout
+* User authentication
+* Display logged-in user's name
+* Browse products
+* Search products
+* Filter products by category
+* View product price and stock
+* Add products to cart
+* Manage cart quantities
+* View orders
+* Responsive interface
 
-### 🛍️ Shopping Features
+### 🛍️ E-Commerce Features
 
-- Product listing
-- Product images
-- Product descriptions
-- Product prices
-- Stock availability
-- Search functionality
-- Category filtering
-- Shopping cart
-- Cart item quantity management
+* Product listing
+* Product images
+* Product descriptions
+* Product prices
+* Stock availability
+* Search functionality
+* Category filtering
+* Shopping cart
+* Order placement
+* Order management
 
 ### 🔐 Authentication
 
-- User registration
-- User login
-- Password authentication
-- Logged-in user information stored using browser local storage
-- Protected order access
+* User registration
+* User login
+* Password authentication
+* Protected user functionality
+* User session management using browser local storage
+
+### 👨‍💼 Admin Features
+
+* Admin dashboard
+* Product management
+* Order management
+* View customer orders
+
+---
+
+## 🛠️ Technologies Used
+
+### Frontend
+
+* HTML5
+* CSS3
+* JavaScript
+
+### Backend
+
+* Node.js
+* Express.js
+
+### Database
+
+* PostgreSQL
+* Supabase
+
+### Deployment
+
+* Vercel — Frontend
+* Render — Backend
 
 ---
 
 ## 🏗️ Project Structure
 
 ```text
-ZEVORA/
+MIZA/
 │
 ├── backend/
 │   ├── server.js
 │   ├── package.json
-│   ├── .env
+│   ├── package-lock.json
+│   ├── config/
+│   ├── routes/
 │   └── ...
 │
 ├── frontend/
@@ -80,3 +116,22 @@ ZEVORA/
 │
 ├── .gitignore
 └── README.md
+```
+
+---
+
+## 🎓 CodeAlpha Internship
+
+**Task:** Task 1 — Simple E-Commerce Store
+
+**Program:** CodeAlpha Full Stack Development Internship
+
+This project demonstrates practical experience in frontend development, backend API development, database integration, authentication, e-commerce functionality, and cloud deployment.
+
+---
+
+## 👩‍💻 Developer
+
+**Hifza Sanuber B S**
+
+GitHub: https://github.com/Hifza18
